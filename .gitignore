@@ -1,0 +1,23 @@
+# Xcode
+## User settings
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad
+*.xcbkptlist
+
+## Build generated
+build/
+DerivedData/
+*.moved-aside
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+## OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1162DBC62BCD356F5E8C681F /* ColoringBook_ARApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD13B4C8C49E49F51733700B /* ColoringBook_ARApp.swift */; };
+		C64BBBEBB6C89B11DF3EDF3E /* ColoringItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A65B560C5570B549B6DAC /* ColoringItem.swift */; };
+		DA194368A109855F10C94E25 /* ColoringCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C41882729D32C349191 /* ColoringCategory.swift */; };
+		01A630ABAC3FBEFEE80ECA1A /* DatasetIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C89C72978843714A35F667 /* DatasetIndex.swift */; };
+		B8632A4927CDAA565953A2F7 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667C7058403E3007F65277DA /* ImageRepository.swift */; };
+		44EE9D227AA1484BFE9436C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3409DAC5495B6C1C8B20E9 /* HomeViewModel.swift */; };
+		9A8645CE8DD4D138D6DA7D4C /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AE1C2E1C54A2EB723E0E37 /* GalleryViewModel.swift */; };
+		CA842CFE06D8BBD1E0FFD254 /* ColoringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C422518B89FA69C3D27DCA2F /* ColoringViewModel.swift */; };
+		85B7F9460198634A000300BF /* ARDrawingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416EFBDA1821BE956B2F743 /* ARDrawingViewModel.swift */; };
+		95712C683DD4AAED75A2A629 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE4459CD7BA0C6FEFB7303 /* ColorPalette.swift */; };
+		B80E4E070602E73929A715EA /* ScanlineFloodFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BEA3A89400B63980E10ACC /* ScanlineFloodFill.swift */; };
+		E413A43AE9F149E808BDAC8F /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DBB38B30D710158C4EAFE5 /* ZoomableScrollView.swift */; };
+		7798233A44D05BA63CD277A9 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C7173195E0056B9255895B /* HomeScreen.swift */; };
+		14F1849AB8294B4A4B7D8921 /* GalleryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20EC89B530ACAC50405D6E2 /* GalleryScreen.swift */; };
+		109A90EF2FB5F39C52F30CA4 /* PaletteBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE848014490B011FA34274 /* PaletteBarView.swift */; };
+		53FCC3BB97535CF10A34276F /* ColoringScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA3A85BD78B139D738F727 /* ColoringScreen.swift */; };
+		C0A13EB331B898D41F92B3A8 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91995639727CBDD1C7EF3966 /* CameraPreviewView.swift */; };
+		E7BFD58BE74B4C1A0B6563C6 /* TracingOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F212E32D2175A44F73097ACA /* TracingOverlayView.swift */; };
+		92F49FF96F0EB7098E9107F8 /* ARDrawingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A88A0BB7ED2CC77E1229F93 /* ARDrawingScreen.swift */; };
+		9C3E88E0686CBC636129C5E7 /* ColoringBook_ARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4141EB51E85143351CEFA714 /* ColoringBook_ARTests.swift */; };
+		5374D090F5DFDA06A54A7587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB55363148003992F62A8EC /* Assets.xcassets */; };
+		5148E764B03E490717494D1B /* data in Resources */ = {isa = PBXBuildFile; fileRef = A9D0EBF1BA664F9A8B1163A3 /* data */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		044D5F717E22956160171C6E /* ColoringBook_AR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColoringBook_AR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B04D226C152098D138747A8 /* ColoringBook_ARTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColoringBook_ARTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD13B4C8C49E49F51733700B /* ColoringBook_ARApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringBook_ARApp.swift"; sourceTree = "<group>"; };
+		BA5A65B560C5570B549B6DAC /* ColoringItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringItem.swift"; sourceTree = "<group>"; };
+		40A96C41882729D32C349191 /* ColoringCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringCategory.swift"; sourceTree = "<group>"; };
+		45C89C72978843714A35F667 /* DatasetIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatasetIndex.swift"; sourceTree = "<group>"; };
+		667C7058403E3007F65277DA /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageRepository.swift"; sourceTree = "<group>"; };
+		6B3409DAC5495B6C1C8B20E9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel.swift"; sourceTree = "<group>"; };
+		49AE1C2E1C54A2EB723E0E37 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryViewModel.swift"; sourceTree = "<group>"; };
+		C422518B89FA69C3D27DCA2F /* ColoringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringViewModel.swift"; sourceTree = "<group>"; };
+		6416EFBDA1821BE956B2F743 /* ARDrawingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARDrawingViewModel.swift"; sourceTree = "<group>"; };
+		22BE4459CD7BA0C6FEFB7303 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColorPalette.swift"; sourceTree = "<group>"; };
+		89BEA3A89400B63980E10ACC /* ScanlineFloodFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanlineFloodFill.swift"; sourceTree = "<group>"; };
+		91DBB38B30D710158C4EAFE5 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ZoomableScrollView.swift"; sourceTree = "<group>"; };
+		73C7173195E0056B9255895B /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeScreen.swift"; sourceTree = "<group>"; };
+		D20EC89B530ACAC50405D6E2 /* GalleryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GalleryScreen.swift"; sourceTree = "<group>"; };
+		77EE848014490B011FA34274 /* PaletteBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PaletteBarView.swift"; sourceTree = "<group>"; };
+		3EFA3A85BD78B139D738F727 /* ColoringScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringScreen.swift"; sourceTree = "<group>"; };
+		91995639727CBDD1C7EF3966 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraPreviewView.swift"; sourceTree = "<group>"; };
+		F212E32D2175A44F73097ACA /* TracingOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TracingOverlayView.swift"; sourceTree = "<group>"; };
+		0A88A0BB7ED2CC77E1229F93 /* ARDrawingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARDrawingScreen.swift"; sourceTree = "<group>"; };
+		4141EB51E85143351CEFA714 /* ColoringBook_ARTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ColoringBook_ARTests.swift"; sourceTree = "<group>"; };
+		7AB55363148003992F62A8EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A9D0EBF1BA664F9A8B1163A3 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; path = data; sourceTree = "<group>"; };
+		79EC9D86F96E96F86E6EFCC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9C2917775E1E2041B46EF75F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		733EFF3966155ABE7471468B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1EB5CAA3F60EB4C50CA4A768 = {
+			isa = PBXGroup;
+			children = (
+				3B7A1423E15D1941DABA8EB8 /* ColoringBook_AR */,
+				B879358E0122ADB25F226773 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B879358E0122ADB25F226773 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				044D5F717E22956160171C6E /* ColoringBook_AR.app */,
+				2B04D226C152098D138747A8 /* ColoringBook_ARTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B7A1423E15D1941DABA8EB8 /* ColoringBook_AR */ = {
+			isa = PBXGroup;
+			children = (
+				77C037C483DC6B00C463C5F9 /* App */,
+				BC8E6A5FDB0FEE50AF1B10E7 /* Models */,
+				06DED7AE4815CE08F1FE0CCF /* Data */,
+				2C5C810155E93B3EFC51D80F /* Repository */,
+				F3533A2279EAD65233E99B38 /* ViewModels */,
+				F867080DDDCAA8CC74A91BE2 /* Views */,
+				B0D194E680229EC86D74432D /* Components */,
+				B642DCC00EC1A184662227C2 /* Resources */,
+				5B01700930551638EE080992 /* Tests */,
+			);
+			path = ColoringBook_AR;
+			sourceTree = "<group>";
+		};
+		77C037C483DC6B00C463C5F9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CD13B4C8C49E49F51733700B /* ColoringBook_ARApp.swift */,
+				79EC9D86F96E96F86E6EFCC1 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		BC8E6A5FDB0FEE50AF1B10E7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BA5A65B560C5570B549B6DAC /* ColoringItem.swift */,
+				40A96C41882729D32C349191 /* ColoringCategory.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		06DED7AE4815CE08F1FE0CCF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				45C89C72978843714A35F667 /* DatasetIndex.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		2C5C810155E93B3EFC51D80F /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				667C7058403E3007F65277DA /* ImageRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		F3533A2279EAD65233E99B38 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6B3409DAC5495B6C1C8B20E9 /* HomeViewModel.swift */,
+				49AE1C2E1C54A2EB723E0E37 /* GalleryViewModel.swift */,
+				C422518B89FA69C3D27DCA2F /* ColoringViewModel.swift */,
+				6416EFBDA1821BE956B2F743 /* ARDrawingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F867080DDDCAA8CC74A91BE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7B4878034A8D8762C7E48348 /* Home */,
+				DD37DFC595519E14082253CE /* Gallery */,
+				CD94623CF1BEE6D3F08857C0 /* Coloring */,
+				49D7A0306802432651831C33 /* ARDrawing */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7B4878034A8D8762C7E48348 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				73C7173195E0056B9255895B /* HomeScreen.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		DD37DFC595519E14082253CE /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				D20EC89B530ACAC50405D6E2 /* GalleryScreen.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		CD94623CF1BEE6D3F08857C0 /* Coloring */ = {
+			isa = PBXGroup;
+			children = (
+				77EE848014490B011FA34274 /* PaletteBarView.swift */,
+				3EFA3A85BD78B139D738F727 /* ColoringScreen.swift */,
+			);
+			path = Coloring;
+			sourceTree = "<group>";
+		};
+		49D7A0306802432651831C33 /* ARDrawing */ = {
+			isa = PBXGroup;
+			children = (
+				91995639727CBDD1C7EF3966 /* CameraPreviewView.swift */,
+				F212E32D2175A44F73097ACA /* TracingOverlayView.swift */,
+				0A88A0BB7ED2CC77E1229F93 /* ARDrawingScreen.swift */,
+			);
+			path = ARDrawing;
+			sourceTree = "<group>";
+		};
+		B0D194E680229EC86D74432D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				22BE4459CD7BA0C6FEFB7303 /* ColorPalette.swift */,
+				89BEA3A89400B63980E10ACC /* ScanlineFloodFill.swift */,
+				91DBB38B30D710158C4EAFE5 /* ZoomableScrollView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B642DCC00EC1A184662227C2 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7AB55363148003992F62A8EC /* Assets.xcassets */,
+				A9D0EBF1BA664F9A8B1163A3 /* data */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5B01700930551638EE080992 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				4141EB51E85143351CEFA714 /* ColoringBook_ARTests.swift */,
+			);
+			path = Tests/ColoringBook_ARTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		99CE155581E429FDEC06412D /* ColoringBook_AR */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A0C995C76ADB55BE5F0C2E4;
+			buildPhases = (
+				DA02BF77DEBC41D1AFDFE60C /* Sources */,
+				9C2917775E1E2041B46EF75F /* Frameworks */,
+				5F9D7CCA8EA836C16CCD7053 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ColoringBook_AR;
+			productName = ColoringBook_AR;
+			productReference = 044D5F717E22956160171C6E /* ColoringBook_AR.app */;
+			productType = "com.apple.product-type.application";
+		};
+		97AB7A79CE1301182ADF9C62 /* ColoringBook_ARTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAD1101FFF8DB4A7300C15C0;
+			buildPhases = (
+				164DCB8B492A70359BBEEF6B /* Sources */,
+				733EFF3966155ABE7471468B /* Frameworks */,
+				372AC457335ADDB2C30B7CBC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ColoringBook_ARTests;
+			productName = ColoringBook_ARTests;
+			productReference = 2B04D226C152098D138747A8 /* ColoringBook_ARTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FAB9222A1E8CBC984705F86 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					99CE155581E429FDEC06412D = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					97AB7A79CE1301182ADF9C62 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 99CE155581E429FDEC06412D;
+					};
+				};
+			};
+			buildConfigurationList = 918461C0674A7F898915D308;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1EB5CAA3F60EB4C50CA4A768;
+			productRefGroup = B879358E0122ADB25F226773;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				99CE155581E429FDEC06412D /* ColoringBook_AR */,
+				97AB7A79CE1301182ADF9C62 /* ColoringBook_ARTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5F9D7CCA8EA836C16CCD7053 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5374D090F5DFDA06A54A7587 /* Assets.xcassets in Resources */,
+				5148E764B03E490717494D1B /* data in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		372AC457335ADDB2C30B7CBC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA02BF77DEBC41D1AFDFE60C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1162DBC62BCD356F5E8C681F /* ColoringBook_ARApp.swift in Sources */,
+				C64BBBEBB6C89B11DF3EDF3E /* ColoringItem.swift in Sources */,
+				DA194368A109855F10C94E25 /* ColoringCategory.swift in Sources */,
+				01A630ABAC3FBEFEE80ECA1A /* DatasetIndex.swift in Sources */,
+				B8632A4927CDAA565953A2F7 /* ImageRepository.swift in Sources */,
+				44EE9D227AA1484BFE9436C1 /* HomeViewModel.swift in Sources */,
+				9A8645CE8DD4D138D6DA7D4C /* GalleryViewModel.swift in Sources */,
+				CA842CFE06D8BBD1E0FFD254 /* ColoringViewModel.swift in Sources */,
+				85B7F9460198634A000300BF /* ARDrawingViewModel.swift in Sources */,
+				95712C683DD4AAED75A2A629 /* ColorPalette.swift in Sources */,
+				B80E4E070602E73929A715EA /* ScanlineFloodFill.swift in Sources */,
+				E413A43AE9F149E808BDAC8F /* ZoomableScrollView.swift in Sources */,
+				7798233A44D05BA63CD277A9 /* HomeScreen.swift in Sources */,
+				14F1849AB8294B4A4B7D8921 /* GalleryScreen.swift in Sources */,
+				109A90EF2FB5F39C52F30CA4 /* PaletteBarView.swift in Sources */,
+				53FCC3BB97535CF10A34276F /* ColoringScreen.swift in Sources */,
+				C0A13EB331B898D41F92B3A8 /* CameraPreviewView.swift in Sources */,
+				E7BFD58BE74B4C1A0B6563C6 /* TracingOverlayView.swift in Sources */,
+				92F49FF96F0EB7098E9107F8 /* ARDrawingScreen.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		164DCB8B492A70359BBEEF6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C3E88E0686CBC636129C5E7 /* ColoringBook_ARTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EF531B549CC7D196200CF87B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E79950FFAD3E4802886EB742 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B9F89151A13CF0E2919C551D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ColoringBook_AR/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.coloringbook.ar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FD99A792C35879A07A5D56D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ColoringBook_AR/App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.coloringbook.ar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1D4D360A30C11F17F0F86EFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.coloringbook.ar.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColoringBook_AR.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ColoringBook_AR";
+			};
+			name = Debug;
+		};
+		86F104B8A83F47229636C9B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.coloringbook.ar.tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ColoringBook_AR.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ColoringBook_AR";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		918461C0674A7F898915D308 /* Build configuration list for PBXProject "ColoringBook_AR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF531B549CC7D196200CF87B /* Debug */,
+				E79950FFAD3E4802886EB742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A0C995C76ADB55BE5F0C2E4 /* Build configuration list for PBXNativeTarget "ColoringBook_AR" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B9F89151A13CF0E2919C551D /* Debug */,
+				FD99A792C35879A07A5D56D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAD1101FFF8DB4A7300C15C0 /* Build configuration list for PBXNativeTarget "ColoringBook_ARTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D4D360A30C11F17F0F86EFC /* Debug */,
+				86F104B8A83F47229636C9B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 9FAB9222A1E8CBC984705F86 /* Project object */;
+}
