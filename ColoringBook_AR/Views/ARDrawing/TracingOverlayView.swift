@@ -6,6 +6,7 @@ public struct TracingOverlayView: View {
     let image: UIImage?
     let opacity: Double
     let isLocked: Bool
+    let isFlippedHorizontal: Bool
     @Binding var scale: CGFloat
     @Binding var offset: CGSize
     @Binding var rotationAngle: Angle
@@ -19,6 +20,7 @@ public struct TracingOverlayView: View {
         image: UIImage?,
         opacity: Double,
         isLocked: Bool,
+        isFlippedHorizontal: Bool = false,
         scale: Binding<CGFloat>,
         offset: Binding<CGSize>,
         rotationAngle: Binding<Angle>
@@ -26,6 +28,7 @@ public struct TracingOverlayView: View {
         self.image = image
         self.opacity = opacity
         self.isLocked = isLocked
+        self.isFlippedHorizontal = isFlippedHorizontal
         self._scale = scale
         self._offset = offset
         self._rotationAngle = rotationAngle
@@ -35,6 +38,8 @@ public struct TracingOverlayView: View {
         GeometryReader { geometry in
             ZStack {
                 if let img = image {
+                    let effectiveScale = scale * (isLocked ? 1.0 : gestureScale)
+
                     Image(uiImage: img)
                         .resizable()
                         .renderingMode(.template) // Allows crisp stencil visibility
@@ -42,7 +47,10 @@ public struct TracingOverlayView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: geometry.size.width * 0.85, maxHeight: geometry.size.height * 0.7)
                         .opacity(opacity)
-                        .scaleEffect(scale * (isLocked ? 1.0 : gestureScale))
+                        .scaleEffect(
+                            x: effectiveScale * (isFlippedHorizontal ? -1.0 : 1.0),
+                            y: effectiveScale
+                        )
                         .rotationEffect(rotationAngle + (isLocked ? .zero : gestureRotation))
                         .offset(
                             x: offset.width + (isLocked ? 0 : gestureOffset.width),
@@ -85,5 +93,20 @@ public struct TracingOverlayView: View {
             }
 
         return drag.simultaneously(with: magnification).simultaneously(with: rotation)
+    }
+}
+
+#Preview {
+    ZStack {
+        Color.gray.opacity(0.3).ignoresSafeArea()
+        TracingOverlayView(
+            image: nil,
+            opacity: 0.7,
+            isLocked: false,
+            isFlippedHorizontal: false,
+            scale: .constant(1.0),
+            offset: .constant(.zero),
+            rotationAngle: .constant(.zero)
+        )
     }
 }

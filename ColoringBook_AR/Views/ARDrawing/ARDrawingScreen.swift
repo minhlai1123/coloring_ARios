@@ -35,6 +35,7 @@ public struct ARDrawingScreen: View {
                 image: viewModel.overlayImage,
                 opacity: viewModel.opacity,
                 isLocked: viewModel.isLocked,
+                isFlippedHorizontal: viewModel.isFlippedHorizontal,
                 scale: $viewModel.scale,
                 offset: $viewModel.offset,
                 rotationAngle: $viewModel.rotationAngle
@@ -42,7 +43,7 @@ public struct ARDrawingScreen: View {
 
             // 3. Top Controls Bar
             VStack {
-                HStack(spacing: 16) {
+                HStack(spacing: 14) {
                     // Close button
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark.circle.fill")
@@ -53,10 +54,21 @@ public struct ARDrawingScreen: View {
 
                     Spacer()
 
+                    // Mirror / Flip Horizontal button
+                    Button(action: { viewModel.toggleFlipHorizontal() }) {
+                        Image(systemName: "arrow.left.and.right.righttriangle.left.righttriangle.right")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                            .foregroundColor(viewModel.isFlippedHorizontal ? .yellow : .white)
+                            .padding(10)
+                            .background(Color.black.opacity(0.5))
+                            .clipShape(Circle())
+                    }
+
                     // Flashlight button
                     Button(action: { viewModel.toggleFlashlight() }) {
                         Image(systemName: viewModel.isFlashlightOn ? "flashlight.on.fill" : "flashlight.off.fill")
-                            .font(.title2)
+                            .font(.title3)
                             .foregroundColor(viewModel.isFlashlightOn ? .yellow : .white)
                             .padding(10)
                             .background(Color.black.opacity(0.5))
@@ -66,7 +78,7 @@ public struct ARDrawingScreen: View {
                     // Reset Transform button
                     Button(action: { viewModel.resetTransform() }) {
                         Image(systemName: "arrow.counterclockwise")
-                            .font(.title2)
+                            .font(.title3)
                             .foregroundColor(.white)
                             .padding(10)
                             .background(Color.black.opacity(0.5))
@@ -76,7 +88,7 @@ public struct ARDrawingScreen: View {
                     // Lock / Unlock button
                     Button(action: { viewModel.toggleLock() }) {
                         Image(systemName: viewModel.isLocked ? "lock.fill" : "lock.open.fill")
-                            .font(.title2)
+                            .font(.title3)
                             .foregroundColor(viewModel.isLocked ? .green : .white)
                             .padding(10)
                             .background(Color.black.opacity(0.5))
@@ -126,4 +138,18 @@ public struct ARDrawingScreen: View {
             viewModel.stopCameraSession()
         }
     }
+}
+
+#Preview {
+    ARDrawingScreen(
+        item: ColoringItem(
+            id: "animals_creatures_001",
+            categoryId: "animals_creatures",
+            name: "Animals Creatures 001",
+            rawPath: "raw/animals_creatures_001.png",
+            arPath: "ar_ready/animals_creatures_001.png",
+            thumbPath: "thumbnails/animals_creatures_001.png",
+            difficulty: "Easy"
+        )
+    )
 }

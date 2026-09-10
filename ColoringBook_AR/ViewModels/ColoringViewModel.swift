@@ -60,6 +60,7 @@ public final class ColoringViewModel: ObservableObject {
             await MainActor.run {
                 self.isProcessing = false
                 if let updated = filledImage {
+                    HapticFeedback.light()
                     self.pushState(previous: img)
                     self.currentImage = updated
                     self.redoStack.removeAll()

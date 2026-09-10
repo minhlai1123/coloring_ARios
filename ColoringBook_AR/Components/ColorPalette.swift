@@ -27,3 +27,29 @@ public struct ColorPalette {
     /// Default starting color
     public static let defaultColor: Color = Color(hex: "E53935")
 }
+
+#if canImport(UIKit)
+import UIKit
+
+/// Reusable haptic feedback trigger for tactile touch interaction
+public struct HapticFeedback {
+    public static func light() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.prepare()
+        generator.impactOccurred()
+    }
+
+    public static func medium() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.prepare()
+        generator.impactOccurred()
+    }
+
+    public static func success() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.prepare()
+        generator.notificationOccurred(.success)
+    }
+}
+#endif
+

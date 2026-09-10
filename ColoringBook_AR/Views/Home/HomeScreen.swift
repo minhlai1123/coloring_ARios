@@ -214,3 +214,8 @@ private struct CategoryCardView: View {
         .shadow(color: category.accentColor.opacity(0.35), radius: 10, x: 0, y: 6)
     }
 }
+
+#Preview {
+    HomeScreen()
+}
+

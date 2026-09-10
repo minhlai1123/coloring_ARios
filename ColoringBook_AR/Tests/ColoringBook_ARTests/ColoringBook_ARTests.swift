@@ -158,4 +158,59 @@ final class ColoringBook_ARTests: XCTestCase {
         let filledTop = ScanlineFloodFill.fill(image: testImage, atPoint: CGPoint(x: 5, y: 5), withColor: .red)
         XCTAssertNotNil(filledTop, "Flood fill should succeed on white region")
     }
+
+    // 11. Test Gallery Search & Favorites Filter Logic
+    @MainActor
+    func testGallerySearchAndFavoritesFilter() throws {
+        try repository.loadDataset()
+        let cat = ColoringCategory(id: "animals_creatures", title: "Animals", icon: "hare", count: 34, accentColorHex: "FF6B6B")
+        let vm = GalleryViewModel(category: cat, repository: repository)
+
+        XCTAssertEqual(vm.filteredItems.count, 34)
+
+        // Test search
+        vm.searchQuery = "001"
+        XCTAssertEqual(vm.filteredItems.count, 1)
+        XCTAssertEqual(vm.filteredItems.first?.id, "animals_creatures_001")
+
+        vm.searchQuery = ""
+        XCTAssertEqual(vm.filteredItems.count, 34)
+
+        // Test favorite toggle
+        if let first = vm.items.first {
+            XCTAssertFalse(vm.isFavorite(item: first))
+            vm.toggleFavorite(item: first)
+            XCTAssertTrue(vm.isFavorite(item: first))
+
+            vm.showFavoritesOnly = true
+            XCTAssertEqual(vm.filteredItems.count, 1)
+
+            vm.toggleFavorite(item: first)
+            XCTAssertFalse(vm.isFavorite(item: first))
+            XCTAssertEqual(vm.filteredItems.count, 0)
+        }
+    }
+
+    // 12. Test AR Drawing ViewModel Mirror / Flip Horizontal
+    @MainActor
+    func testARDrawingViewModelFlipHorizontal() {
+        let item = ColoringItem(
+            id: "test_001",
+            categoryId: "animals_creatures",
+            name: "Test 001",
+            rawPath: "raw/test.png",
+            arPath: "ar_ready/test.png",
+            thumbPath: "thumbnails/test.png",
+            difficulty: "Easy"
+        )
+        let vm = ARDrawingViewModel(item: item, repository: repository)
+
+        XCTAssertFalse(vm.isFlippedHorizontal)
+        vm.toggleFlipHorizontal()
+        XCTAssertTrue(vm.isFlippedHorizontal)
+
+        vm.resetTransform()
+        XCTAssertFalse(vm.isFlippedHorizontal)
+    }
 }
+

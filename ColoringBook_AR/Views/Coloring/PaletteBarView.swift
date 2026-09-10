@@ -9,6 +9,7 @@ public struct PaletteBarView: View {
     let onRedo: () -> Void
     let onReset: () -> Void
     let onSave: () -> Void
+    let onShare: () -> Void
 
     public init(
         selectedColor: Binding<Color>,
@@ -17,7 +18,8 @@ public struct PaletteBarView: View {
         onUndo: @escaping () -> Void,
         onRedo: @escaping () -> Void,
         onReset: @escaping () -> Void,
-        onSave: @escaping () -> Void
+        onSave: @escaping () -> Void,
+        onShare: @escaping () -> Void
     ) {
         self._selectedColor = selectedColor
         self.canUndo = canUndo
@@ -26,27 +28,37 @@ public struct PaletteBarView: View {
         self.onRedo = onRedo
         self.onReset = onReset
         self.onSave = onSave
+        self.onShare = onShare
     }
 
     public var body: some View {
         VStack(spacing: 12) {
-            // Action Toolbar (Undo, Redo, Reset, Save)
-            HStack(spacing: 20) {
-                Button(action: onUndo) {
+            // Action Toolbar (Undo, Redo, Reset, Share, Save)
+            HStack(spacing: 18) {
+                Button(action: {
+                    HapticFeedback.light()
+                    onUndo()
+                }) {
                     Image(systemName: "arrow.uturn.backward.circle.fill")
                         .font(.title2)
                         .foregroundColor(canUndo ? .primary : .secondary.opacity(0.4))
                 }
                 .disabled(!canUndo)
 
-                Button(action: onRedo) {
+                Button(action: {
+                    HapticFeedback.light()
+                    onRedo()
+                }) {
                     Image(systemName: "arrow.uturn.forward.circle.fill")
                         .font(.title2)
                         .foregroundColor(canRedo ? .primary : .secondary.opacity(0.4))
                 }
                 .disabled(!canRedo)
 
-                Button(action: onReset) {
+                Button(action: {
+                    HapticFeedback.medium()
+                    onReset()
+                }) {
                     Image(systemName: "arrow.counterclockwise.circle")
                         .font(.title2)
                         .foregroundColor(.primary)
@@ -54,7 +66,24 @@ public struct PaletteBarView: View {
 
                 Spacer()
 
-                Button(action: onSave) {
+                // Share Button (Native Share Sheet)
+                Button(action: {
+                    HapticFeedback.light()
+                    onShare()
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.title3)
+                        .foregroundColor(.primary)
+                        .padding(8)
+                        .background(Color(uiColor: .tertiarySystemFill))
+                        .clipShape(Circle())
+                }
+
+                // Save to Photos Button
+                Button(action: {
+                    HapticFeedback.success()
+                    onSave()
+                }) {
                     HStack(spacing: 6) {
                         Image(systemName: "square.and.arrow.down.fill")
                         Text("Save")
@@ -72,14 +101,37 @@ public struct PaletteBarView: View {
 
             Divider()
 
-            // Horizontal Color Palette Swatches (18 colors)
+            // Horizontal Color Palette Swatches (ColorPicker + 18 colors)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 14) {
+                    // Native iOS Spectrum Color Picker
+                    ZStack {
+                        Circle()
+                            .fill(
+                                AngularGradient(
+                                    gradient: Gradient(colors: [.red, .yellow, .green, .cyan, .blue, .purple, .pink, .red]),
+                                    center: .center
+                                )
+                            )
+                            .frame(width: 36, height: 36)
+                            .overlay(
+                                Circle().stroke(Color.white, lineWidth: 2)
+                            )
+                            .shadow(radius: 2)
+
+                        ColorPicker("", selection: $selectedColor, supportsOpacity: false)
+                            .labelsHidden()
+                            .opacity(0.015) // Tap targets the color picker natively
+                            .frame(width: 36, height: 36)
+                    }
+                    .frame(width: 44, height: 44)
+
                     ForEach(ColorPalette.colors, id: \.self) { color in
                         ColorSwatchButton(
                             color: color,
                             isSelected: selectedColor == color,
                             onSelect: {
+                                HapticFeedback.light()
                                 withAnimation(.spring(response: 0.2, dampingFraction: 0.7)) {
                                     selectedColor = color
                                 }
@@ -146,4 +198,17 @@ private struct RoundedCorner: Shape {
         )
         return Path(path.cgPath)
     }
+}
+
+#Preview {
+    PaletteBarView(
+        selectedColor: .constant(.red),
+        canUndo: true,
+        canRedo: false,
+        onUndo: {},
+        onRedo: {},
+        onReset: {},
+        onSave: {},
+        onShare: {}
+    )
 }

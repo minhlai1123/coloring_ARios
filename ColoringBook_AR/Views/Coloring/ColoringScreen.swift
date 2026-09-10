@@ -1,9 +1,13 @@
 import SwiftUI
+import UIKit
 
 /// Normal Coloring Studio Screen with interactive flood-fill canvas, zoom/pan, and palette toolbar
 public struct ColoringScreen: View {
     @StateObject private var viewModel: ColoringViewModel
     @Environment(\.dismiss) private var dismiss
+
+    @State private var showingResetAlert: Bool = false
+    @State private var showingShareSheet: Bool = false
 
     public init(item: ColoringItem) {
         _viewModel = StateObject(wrappedValue: ColoringViewModel(item: item))
@@ -49,8 +53,13 @@ public struct ColoringScreen: View {
                     canRedo: viewModel.canRedo,
                     onUndo: { viewModel.undo() },
                     onRedo: { viewModel.redo() },
-                    onReset: { viewModel.reset() },
-                    onSave: { viewModel.saveToPhotos() }
+                    onReset: { showingResetAlert = true },
+                    onSave: { viewModel.saveToPhotos() },
+                    onShare: {
+                        if viewModel.currentImage != nil {
+                            showingShareSheet = true
+                        }
+                    }
                 )
             }
 
@@ -82,5 +91,50 @@ public struct ColoringScreen: View {
         .navigationTitle(viewModel.item.name)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(false)
+        .alert("Reset Artwork?", isPresented: $showingResetAlert) {
+            Button("Reset", role: .destructive) {
+                viewModel.reset()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("All colors applied to this drawing will be cleared.")
+        }
+        .sheet(isPresented: $showingShareSheet) {
+            if let image = viewModel.currentImage {
+                ActivityViewController(activityItems: [image])
+            }
+        }
+    }
+}
+
+/// UIActivityViewController bridge to present native iOS Share Sheet
+private struct ActivityViewController: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    let applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(
+            activityItems: activityItems,
+            applicationActivities: applicationActivities
+        )
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+#Preview {
+    NavigationStack {
+        ColoringScreen(
+            item: ColoringItem(
+                id: "animals_creatures_001",
+                categoryId: "animals_creatures",
+                name: "Animals Creatures 001",
+                rawPath: "raw/animals_creatures_001.png",
+                arPath: "ar_ready/animals_creatures_001.png",
+                thumbPath: "thumbnails/animals_creatures_001.png",
+                difficulty: "Easy"
+            )
+        )
     }
 }

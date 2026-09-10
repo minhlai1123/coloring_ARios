@@ -18,23 +18,60 @@ public struct GalleryScreen: View {
 
     public var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.filteredItems) { item in
-                    GalleryThumbnailCard(
-                        item: item,
-                        thumbnail: viewModel.thumbnail(for: item),
-                        onTap: {
-                            selectedItemForAction = item
-                        }
-                    )
+            if viewModel.filteredItems.isEmpty {
+                VStack(spacing: 16) {
+                    Image(systemName: viewModel.showFavoritesOnly ? "heart.slash" : "magnifyingglass")
+                        .font(.system(size: 48))
+                        .foregroundColor(.secondary.opacity(0.6))
+                        .padding(.top, 60)
+
+                    Text(viewModel.showFavoritesOnly ? "No favorites yet" : "No results found")
+                        .font(.headline)
+                        .foregroundColor(.secondary)
+
+                    Text(viewModel.showFavoritesOnly ? "Tap the heart icon on any drawing to add it to your favorites." : "Try searching with a different keyword.")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
                 }
+                .frame(maxWidth: .infinity)
+            } else {
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(viewModel.filteredItems) { item in
+                        GalleryThumbnailCard(
+                            item: item,
+                            thumbnail: viewModel.thumbnail(for: item),
+                            isFavorite: viewModel.isFavorite(item: item),
+                            onToggleFavorite: {
+                                viewModel.toggleFavorite(item: item)
+                            },
+                            onTap: {
+                                selectedItemForAction = item
+                            }
+                        )
+                    }
+                }
+                .padding(16)
             }
-            .padding(16)
         }
         .background(Color(uiColor: .systemGroupedBackground))
         .navigationTitle(viewModel.category.title)
         .navigationBarTitleDisplayMode(.inline)
         .searchable(text: $viewModel.searchQuery, prompt: "Search in \(viewModel.category.title)")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: {
+                    HapticFeedback.light()
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        viewModel.showFavoritesOnly.toggle()
+                    }
+                }) {
+                    Image(systemName: viewModel.showFavoritesOnly ? "heart.fill" : "heart")
+                        .foregroundColor(viewModel.showFavoritesOnly ? .red : .primary)
+                }
+            }
+        }
         .confirmationDialog(
             "Select Drawing Mode",
             isPresented: Binding(
@@ -84,13 +121,15 @@ public struct GalleryScreen: View {
 private struct GalleryThumbnailCard: View {
     let item: ColoringItem
     let thumbnail: UIImage?
+    let isFavorite: Bool
+    let onToggleFavorite: () -> Void
     let onTap: () -> Void
 
     var body: some View {
         Button(action: onTap) {
             VStack(alignment: .leading, spacing: 8) {
                 // Thumbnail container
-                ZStack {
+                ZStack(alignment: .topTrailing) {
                     Color.white
 
                     if let img = thumbnail {
@@ -101,6 +140,18 @@ private struct GalleryThumbnailCard: View {
                     } else {
                         ProgressView()
                     }
+
+                    // Favorite button
+                    Button(action: onToggleFavorite) {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(isFavorite ? .red : .gray.opacity(0.6))
+                            .padding(8)
+                            .background(Color.white.opacity(0.85))
+                            .clipShape(Circle())
+                            .shadow(radius: 2)
+                    }
+                    .padding(8)
                 }
                 .frame(height: 156)
                 .clipped()
@@ -146,5 +197,19 @@ private struct GalleryThumbnailCard: View {
         case "MEDIUM": return .orange
         default: return .green
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        GalleryScreen(
+            category: ColoringCategory(
+                id: "animals_creatures",
+                title: "Animals & Creatures",
+                icon: "hare.fill",
+                count: 36,
+                accentColorHex: "FF6B6B"
+            )
+        )
     }
 }

@@ -15,6 +15,7 @@ public final class ARDrawingViewModel: ObservableObject {
     @Published public var offset: CGSize = .zero
     @Published public var rotationAngle: Angle = .zero
     @Published public var isLocked: Bool = false
+    @Published public var isFlippedHorizontal: Bool = false
     @Published public var isFlashlightOn: Bool = false
 
     // Camera Session State
@@ -128,14 +129,24 @@ public final class ARDrawingViewModel: ObservableObject {
     // MARK: - Stencil Transform Manipulations
 
     public func resetTransform() {
+        HapticFeedback.light()
         withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
             self.scale = 1.0
             self.offset = .zero
             self.rotationAngle = .zero
+            self.isFlippedHorizontal = false
+        }
+    }
+
+    public func toggleFlipHorizontal() {
+        HapticFeedback.light()
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+            self.isFlippedHorizontal.toggle()
         }
     }
 
     public func toggleLock() {
+        HapticFeedback.medium()
         withAnimation(.easeInOut(duration: 0.2)) {
             self.isLocked.toggle()
         }
