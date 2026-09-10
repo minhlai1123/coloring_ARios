@@ -163,7 +163,7 @@ final class ColoringBook_ARTests: XCTestCase {
     @MainActor
     func testGallerySearchAndFavoritesFilter() throws {
         try repository.loadDataset()
-        let cat = ColoringCategory(id: "animals_creatures", title: "Animals", icon: "hare", count: 34, accentColorHex: "FF6B6B")
+        let cat = ColoringCategory.make(id: "animals_creatures", count: 34)
         let vm = GalleryViewModel(category: cat, repository: repository)
 
         XCTAssertEqual(vm.filteredItems.count, 34)
@@ -196,11 +196,11 @@ final class ColoringBook_ARTests: XCTestCase {
     func testARDrawingViewModelFlipHorizontal() {
         let item = ColoringItem(
             id: "test_001",
-            categoryId: "animals_creatures",
             name: "Test 001",
-            rawPath: "raw/test.png",
-            arPath: "ar_ready/test.png",
-            thumbPath: "thumbnails/test.png",
+            category: "animals_creatures",
+            file: "raw/test.png",
+            arFile: "ar_ready/test.png",
+            thumb: "thumbnails/test.png",
             difficulty: "Easy"
         )
         let vm = ARDrawingViewModel(item: item, repository: repository)

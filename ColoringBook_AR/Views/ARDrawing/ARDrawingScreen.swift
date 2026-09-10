@@ -144,11 +144,11 @@ public struct ARDrawingScreen: View {
     ARDrawingScreen(
         item: ColoringItem(
             id: "animals_creatures_001",
-            categoryId: "animals_creatures",
             name: "Animals Creatures 001",
-            rawPath: "raw/animals_creatures_001.png",
-            arPath: "ar_ready/animals_creatures_001.png",
-            thumbPath: "thumbnails/animals_creatures_001.png",
+            category: "animals_creatures",
+            file: "raw/animals_creatures_001.png",
+            arFile: "ar_ready/animals_creatures_001.png",
+            thumb: "thumbnails/animals_creatures_001.png",
             difficulty: "Easy"
         )
     )

@@ -203,13 +203,7 @@ private struct GalleryThumbnailCard: View {
 #Preview {
     NavigationStack {
         GalleryScreen(
-            category: ColoringCategory(
-                id: "animals_creatures",
-                title: "Animals & Creatures",
-                icon: "hare.fill",
-                count: 36,
-                accentColorHex: "FF6B6B"
-            )
+            category: ColoringCategory.make(id: "animals_creatures", count: 34)
         )
     }
 }
