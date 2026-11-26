@@ -14,7 +14,7 @@ final class ColoringBook_ARTests: XCTestCase {
             repository = ImageRepository(bundle: bundle, customDataURL: dataURL)
         } else {
             // Fallback development path in workspace
-            dataURL = URL(fileURLWithPath: "E:/colorringbook_AR/coloringbook2_ar_ios/ColoringBook_AR/Resources/data")
+            dataURL = URL(fileURLWithPath: "E:/coloring_ARios/ColoringBook_AR/Resources/data")
             repository = ImageRepository(bundle: bundle, customDataURL: dataURL)
         }
     }
@@ -211,6 +211,81 @@ final class ColoringBook_ARTests: XCTestCase {
 
         vm.resetTransform()
         XCTAssertFalse(vm.isFlippedHorizontal)
+    }
+
+    // 13. Test Coloring ViewModel Initial Tool is BRUSH (Android parity)
+    @MainActor
+    func testInitialToolIsBrush() {
+        let item = ColoringItem(
+            id: "test_001",
+            name: "Test 001",
+            category: "animals_creatures",
+            file: "raw/test.png",
+            arFile: "ar_ready/test.png",
+            thumb: "thumbnails/test.png",
+            difficulty: "Easy"
+        )
+        let vm = ColoringViewModel(item: item, repository: repository)
+        XCTAssertEqual(vm.currentTool, .brush, "Initial tool must be .brush matching Android")
+    }
+
+    // 14. Test selectTool Updates Tool State (Android parity)
+    @MainActor
+    func testSelectToolUpdatesState() {
+        let item = ColoringItem(
+            id: "test_001",
+            name: "Test 001",
+            category: "animals_creatures",
+            file: "raw/test.png",
+            arFile: "ar_ready/test.png",
+            thumb: "thumbnails/test.png",
+            difficulty: "Easy"
+        )
+        let vm = ColoringViewModel(item: item, repository: repository)
+
+        vm.selectTool(.fill)
+        XCTAssertEqual(vm.currentTool, .fill)
+
+        vm.selectTool(.eraser)
+        XCTAssertEqual(vm.currentTool, .eraser)
+
+        vm.selectTool(.brush)
+        XCTAssertEqual(vm.currentTool, .brush)
+    }
+
+    // 15. Test Brush Size Default and Updates (Android parity)
+    @MainActor
+    func testBrushSizeDefaultAndUpdate() {
+        let item = ColoringItem(
+            id: "test_001",
+            name: "Test 001",
+            category: "animals_creatures",
+            file: "raw/test.png",
+            arFile: "ar_ready/test.png",
+            thumb: "thumbnails/test.png",
+            difficulty: "Easy"
+        )
+        let vm = ColoringViewModel(item: item, repository: repository)
+
+        XCTAssertEqual(vm.brushSize, 28.0)
+
+        vm.setBrushSize(14.0)
+        XCTAssertEqual(vm.brushSize, 14.0)
+
+        vm.setBrushSize(50.0)
+        XCTAssertEqual(vm.brushSize, 50.0)
+    }
+
+    // 16. Test Category Titles Matched to Android
+    func testCategoryTitlesMatchAndroid() {
+        let cat1 = ColoringCategory.make(id: "fantasy_landscapes", count: 10)
+        XCTAssertEqual(cat1.title, "Fantasy & Landscapes")
+
+        let cat2 = ColoringCategory.make(id: "mandala_patterns", count: 10)
+        XCTAssertEqual(cat2.title, "Mandalas & Patterns")
+
+        let cat3 = ColoringCategory.make(id: "characters_princesses", count: 10)
+        XCTAssertEqual(cat3.title, "Princesses & Heroes")
     }
 }
 

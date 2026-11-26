@@ -50,7 +50,7 @@ public struct ColoringCategory: Identifiable, Hashable, Sendable {
         case "fantasy_landscapes":
             return ColoringCategory(
                 id: id,
-                title: "Fantasy Landscapes",
+                title: "Fantasy & Landscapes",
                 count: count,
                 systemIcon: "mountain.2.fill",
                 gradientColors: [Color(hex: "84FAB0"), Color(hex: "8FD3F4")],
@@ -68,7 +68,7 @@ public struct ColoringCategory: Identifiable, Hashable, Sendable {
         case "mandala_patterns":
             return ColoringCategory(
                 id: id,
-                title: "Mandala & Patterns",
+                title: "Mandalas & Patterns",
                 count: count,
                 systemIcon: "circle.hexagongrid.circle.fill",
                 gradientColors: [Color(hex: "A18CD1"), Color(hex: "FBC2EB")],
@@ -86,7 +86,7 @@ public struct ColoringCategory: Identifiable, Hashable, Sendable {
         case "characters_princesses":
             return ColoringCategory(
                 id: id,
-                title: "Characters & Princesses",
+                title: "Princesses & Heroes",
                 count: count,
                 systemIcon: "crown.fill",
                 gradientColors: [Color(hex: "FFB199"), Color(hex: "FF0844")],

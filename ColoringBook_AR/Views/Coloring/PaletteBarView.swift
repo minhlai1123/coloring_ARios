@@ -3,8 +3,12 @@ import SwiftUI
 /// Bottom Color Selection Palette and Action Toolbar for Normal Coloring
 public struct PaletteBarView: View {
     @Binding var selectedColor: Color
+    @Binding var currentTool: ColoringViewModel.DrawingTool
+    @Binding var brushSize: CGFloat
     let canUndo: Bool
     let canRedo: Bool
+    let onToolSelected: (ColoringViewModel.DrawingTool) -> Void
+    let onBrushSizeSelected: (CGFloat) -> Void
     let onUndo: () -> Void
     let onRedo: () -> Void
     let onReset: () -> Void
@@ -13,8 +17,12 @@ public struct PaletteBarView: View {
 
     public init(
         selectedColor: Binding<Color>,
+        currentTool: Binding<ColoringViewModel.DrawingTool>,
+        brushSize: Binding<CGFloat>,
         canUndo: Bool,
         canRedo: Bool,
+        onToolSelected: @escaping (ColoringViewModel.DrawingTool) -> Void,
+        onBrushSizeSelected: @escaping (CGFloat) -> Void,
         onUndo: @escaping () -> Void,
         onRedo: @escaping () -> Void,
         onReset: @escaping () -> Void,
@@ -22,8 +30,12 @@ public struct PaletteBarView: View {
         onShare: @escaping () -> Void
     ) {
         self._selectedColor = selectedColor
+        self._currentTool = currentTool
+        self._brushSize = brushSize
         self.canUndo = canUndo
         self.canRedo = canRedo
+        self.onToolSelected = onToolSelected
+        self.onBrushSizeSelected = onBrushSizeSelected
         self.onUndo = onUndo
         self.onRedo = onRedo
         self.onReset = onReset
@@ -32,8 +44,16 @@ public struct PaletteBarView: View {
     }
 
     public var body: some View {
-        VStack(spacing: 12) {
-            // Action Toolbar (Undo, Redo, Reset, Share, Save)
+        VStack(spacing: 10) {
+            // 1. Tool Selection & Brush Size Selector
+            ToolSelectorBarView(
+                currentTool: $currentTool,
+                brushSize: $brushSize,
+                onToolSelected: onToolSelected,
+                onBrushSizeSelected: onBrushSizeSelected
+            )
+
+            // 2. Action Toolbar (Undo, Redo, Reset, Share, Save)
             HStack(spacing: 18) {
                 Button(action: {
                     HapticFeedback.light()
@@ -150,6 +170,91 @@ public struct PaletteBarView: View {
     }
 }
 
+/// Tool selection bar matching Android (Brush, Fill, Eraser + Brush size dots)
+public struct ToolSelectorBarView: View {
+    @Binding var currentTool: ColoringViewModel.DrawingTool
+    @Binding var brushSize: CGFloat
+    let onToolSelected: (ColoringViewModel.DrawingTool) -> Void
+    let onBrushSizeSelected: (CGFloat) -> Void
+
+    public init(
+        currentTool: Binding<ColoringViewModel.DrawingTool>,
+        brushSize: Binding<CGFloat>,
+        onToolSelected: @escaping (ColoringViewModel.DrawingTool) -> Void,
+        onBrushSizeSelected: @escaping (CGFloat) -> Void
+    ) {
+        self._currentTool = currentTool
+        self._brushSize = brushSize
+        self.onToolSelected = onToolSelected
+        self.onBrushSizeSelected = onBrushSizeSelected
+    }
+
+    public var body: some View {
+        HStack {
+            // Mode selector chips: Brush, Fill, Eraser
+            HStack(spacing: 8) {
+                toolChip(tool: .brush, icon: "paintbrush.pointed.fill", title: "Brush")
+                toolChip(tool: .fill, icon: "drop.fill", title: "Fill")
+                toolChip(tool: .eraser, icon: "eraser.fill", title: "Eraser")
+            }
+
+            Spacer()
+
+            // Brush size selector dots (visible for Brush and Eraser)
+            if currentTool != .fill {
+                HStack(spacing: 8) {
+                    let sizes: [(CGFloat, CGFloat)] = [(14.0, 6.0), (28.0, 10.0), (50.0, 15.0)]
+                    ForEach(sizes, id: \.0) { sizeVal, dotSize in
+                        let isSelected = abs(brushSize - sizeVal) < 2.0
+                        Button(action: {
+                            HapticFeedback.light()
+                            onBrushSizeSelected(sizeVal)
+                        }) {
+                            ZStack {
+                                Circle()
+                                    .fill(isSelected ? Color.blue.opacity(0.2) : Color.clear)
+                                    .frame(width: 28, height: 28)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(isSelected ? Color.blue : Color.secondary.opacity(0.3), lineWidth: isSelected ? 1.5 : 1)
+                                    )
+
+                                Circle()
+                                    .fill(isSelected ? Color.blue : Color.secondary.opacity(0.7))
+                                    .frame(width: dotSize, height: dotSize)
+                            }
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 4)
+    }
+
+    private func toolChip(tool: ColoringViewModel.DrawingTool, icon: String, title: String) -> some View {
+        let isSelected = currentTool == tool
+        return Button(action: {
+            HapticFeedback.selection()
+            onToolSelected(tool)
+        }) {
+            HStack(spacing: 5) {
+                Image(systemName: icon)
+                    .font(.system(size: 11, weight: .bold))
+                Text(title)
+                    .font(.system(size: 12, weight: .semibold))
+            }
+            .foregroundColor(isSelected ? .white : .primary)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(isSelected ? Color.blue : Color(uiColor: .tertiarySystemFill))
+            .clipShape(Capsule())
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+}
+
 /// Swatch Circle Button with active border indicator
 private struct ColorSwatchButton: View {
     let color: Color
@@ -203,8 +308,12 @@ private struct RoundedCorner: Shape {
 #Preview {
     PaletteBarView(
         selectedColor: .constant(.red),
+        currentTool: .constant(.brush),
+        brushSize: .constant(28.0),
         canUndo: true,
         canRedo: false,
+        onToolSelected: { _ in },
+        onBrushSizeSelected: { _ in },
         onUndo: {},
         onRedo: {},
         onReset: {},

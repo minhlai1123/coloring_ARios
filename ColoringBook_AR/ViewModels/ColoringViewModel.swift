@@ -8,8 +8,19 @@ import Combine
 public final class ColoringViewModel: ObservableObject {
     public let item: ColoringItem
 
+    // Drawing Tools
+    public enum DrawingTool: String, CaseIterable, Identifiable {
+        case brush = "Brush"
+        case fill = "Fill"
+        case eraser = "Eraser"
+
+        public var id: String { rawValue }
+    }
+
     @Published public private(set) var currentImage: UIImage?
     @Published public var selectedColor: Color = ColorPalette.defaultColor
+    @Published public var currentTool: DrawingTool = .brush
+    @Published public var brushSize: CGFloat = 28.0
     @Published public private(set) var canUndo: Bool = false
     @Published public private(set) var canRedo: Bool = false
     @Published public private(set) var isProcessing: Bool = false
@@ -45,6 +56,14 @@ public final class ColoringViewModel: ObservableObject {
         updateUndoRedoState()
     }
 
+    public func selectTool(_ tool: DrawingTool) {
+        self.currentTool = tool
+    }
+
+    public func setBrushSize(_ size: CGFloat) {
+        self.brushSize = size
+    }
+
     // MARK: - Interactive Flood Fill
 
     public func handleTap(at point: CGPoint) {
@@ -68,6 +87,69 @@ public final class ColoringViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    // MARK: - Freehand Brush Drawing & Erasing
+
+    public func applyBrushStroke(
+        points: [CGPoint],
+        strokeWidth: CGFloat,
+        color: UIColor,
+        isEraser: Bool = false
+    ) {
+        guard let current = currentImage, let original = baseOriginalImage, !points.isEmpty else { return }
+
+        // Save state for undo
+        pushState(previous: current)
+
+        let size = current.size
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let updatedImage = renderer.image { ctx in
+            let cgContext = ctx.cgContext
+
+            // 1. Draw existing canvas
+            current.draw(at: .zero)
+
+            // 2. Draw stroke path
+            cgContext.setLineCap(.round)
+            cgContext.setLineJoin(.round)
+            cgContext.setLineWidth(strokeWidth)
+
+            let strokeColor = isEraser ? UIColor.white : color
+            cgContext.setStrokeColor(strokeColor.cgColor)
+            cgContext.setFillColor(strokeColor.cgColor)
+
+            if points.count == 1 {
+                let p = points[0]
+                let rect = CGRect(
+                    x: p.x - strokeWidth / 2.0,
+                    y: p.y - strokeWidth / 2.0,
+                    width: strokeWidth,
+                    height: strokeWidth
+                )
+                cgContext.fillEllipse(in: rect)
+            } else {
+                let path = CGMutablePath()
+                path.move(to: points[0])
+                for i in 1..<points.count {
+                    let p0 = points[i - 1]
+                    let p1 = points[i]
+                    let mid = CGPoint(x: (p0.x + p1.x) / 2.0, y: (p0.y + p1.y) / 2.0)
+                    path.addQuadCurve(to: mid, control: p0)
+                }
+                path.addLine(to: points.last!)
+                cgContext.addPath(path)
+                cgContext.strokePath()
+            }
+
+            // 3. Multiply blend original line-art back on top to guarantee black lines are never covered
+            original.draw(in: CGRect(origin: .zero, size: size), blendMode: .multiply, alpha: 1.0)
+        }
+
+        self.currentImage = updatedImage
+        self.redoStack.removeAll()
+        self.updateUndoRedoState()
+        HapticFeedback.light()
     }
 
     // MARK: - Undo, Redo, Reset

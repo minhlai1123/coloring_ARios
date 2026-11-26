@@ -1,0 +1,74 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build iOS IPA
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build iOS Application
+        run: |
+          set -o pipefail
+          xcodebuild clean build \
+            -project ColoringBook_AR.xcodeproj \
+            -scheme ColoringBook_AR \
+            -destination "generic/platform=iOS" \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES 2>&1 | tee xcodebuild.log
+
+      - name: Capture and report build errors
+        if: failure()
+        run: |
+          echo "### ❌ XcodeBuild Failure Summary" >> $GITHUB_STEP_SUMMARY
+          echo '```text' >> $GITHUB_STEP_SUMMARY
+          grep -C 2 "error:" xcodebuild.log | head -n 80 >> $GITHUB_STEP_SUMMARY || true
+          tail -n 60 xcodebuild.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          while IFS= read -r line; do
+            if [[ "$line" == *"error:"* ]]; then
+              echo "::error::$line"
+            fi
+          done < xcodebuild.log
+
+      - name: Package Payload into IPA
+        run: |
+          mkdir -p Payload
+          APP_PATH=$(find build/Build/Products/Release-iphoneos -name "*.app" -type d | head -n 1)
+          echo "Found app at: $APP_PATH"
+          cp -r "$APP_PATH" Payload/
+          zip -r ColoringBook_AR.ipa Payload
+          echo "Successfully created ColoringBook_AR.ipa"
+          ls -la ColoringBook_AR.ipa
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ColoringBook_AR-IPA
+          path: ColoringBook_AR.ipa
+          retention-days: 14
+
+      - name: Create GitHub Release with IPA
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0-ios
+          name: "ColoringBook AR iOS v1.0.0 (iOS 16+)"
+          body: "ColoringBook AR Native iOS v1.0.0 IPA build with Normal Coloring (Brush, Fill, Eraser), AR Camera Tracing, and 235 templates."
+          files: ColoringBook_AR.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

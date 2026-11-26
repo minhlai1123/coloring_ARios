@@ -23,8 +23,14 @@ public struct ColoringScreen: View {
                 ZStack {
                     ZoomableScrollView(
                         image: viewModel.currentImage,
+                        currentTool: viewModel.currentTool,
+                        brushSize: viewModel.brushSize,
+                        selectedColor: viewModel.selectedColor,
                         onTap: { point in
                             viewModel.handleTap(at: point)
+                        },
+                        onStrokeFinished: { points, width, color, isEraser in
+                            viewModel.applyBrushStroke(points: points, strokeWidth: width, color: color, isEraser: isEraser)
                         }
                     )
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -49,8 +55,12 @@ public struct ColoringScreen: View {
                 // Palette & Action Toolbar
                 PaletteBarView(
                     selectedColor: $viewModel.selectedColor,
+                    currentTool: $viewModel.currentTool,
+                    brushSize: $viewModel.brushSize,
                     canUndo: viewModel.canUndo,
                     canRedo: viewModel.canRedo,
+                    onToolSelected: { viewModel.selectTool($0) },
+                    onBrushSizeSelected: { viewModel.setBrushSize($0) },
                     onUndo: { viewModel.undo() },
                     onRedo: { viewModel.redo() },
                     onReset: { showingResetAlert = true },
@@ -91,6 +101,23 @@ public struct ColoringScreen: View {
         .navigationTitle(viewModel.item.name)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(false)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(destination: ARDrawingScreen(item: viewModel.item)) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "camera.viewfinder")
+                        Text("AR Tracing")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .clipShape(Capsule())
+                }
+            }
+        }
         .alert("Reset Artwork?", isPresented: $showingResetAlert) {
             Button("Reset", role: .destructive) {
                 viewModel.reset()
