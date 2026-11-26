@@ -50,6 +50,12 @@ public struct HapticFeedback {
         generator.prepare()
         generator.notificationOccurred(.success)
     }
+
+    public static func selection() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.prepare()
+        generator.selectionChanged()
+    }
 }
 #endif
 
